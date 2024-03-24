@@ -17,6 +17,7 @@ RUN apt-get update -q \
 && apt-get install -q -y --no-install-recommends \
     curl \
     ca-certificates \
+    python3 \
     xz-utils \
 && mkdir bin \
 && mkdir downloads \
@@ -34,10 +35,14 @@ RUN apt-get update -q \
 && curl --proto "=https" --silent --show-error \
     --location "https://github.com/golemfactory/ya-installer-resources/releases/download/v${YA_RESOURCES_VERSION}/resources.tar.gz" \
     --output "downloads/ya-resources.tar.gz" \
+&& curl --proto "https" --silent --show-error \
+    --location "https://raw.githubusercontent.com/jedbrooke/golem-price-updater/master/golem-price-update.py"
+    --output "golem-price-update.py"
 && mkdir downloads/golem-provider-linux \
 && mkdir downloads/ya-runtime-wasi-linux \
 && mkdir downloads/ya-runtime-vm-linux \
 && mkdir downloads/ya-resources \
+&& mkdir 
 && tar -zxvf downloads/golem-provider-linux.tar.gz -C downloads/golem-provider-linux \
 && tar -zxvf downloads/ya-runtime-wasi-linux.tar.gz -C downloads/ya-runtime-wasi-linux \
 && tar -zxvf downloads/ya-runtime-vm-linux.tar.gz -C downloads/ya-runtime-vm-linux \
@@ -61,6 +66,7 @@ COPY run.sh /
 COPY --from=installer /root/golem-setup/plugins/ ${YA_DIR_PLUGINS}
 COPY --from=installer /root/golem-setup/bin/ ${YA_DIR_BIN}
 COPY --from=installer /root/golem-setup/resources/ ${YA_DIR_RESOURCES}
+COPY --from=installer /root/golem-setup/golem-price-update.py
 
 CMD ["/run.sh"]
 VOLUME ["/root/.local/share/ya-provider/", "/root/.local/share/yagna/"]
