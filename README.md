@@ -1,3 +1,9 @@
+THIS FORK IS A WORK IN PROGRESS AND IS UNTESTED AT THIS POINT. 
+DON'T EXPECT IT TO WORK
+
+
+
+
 #  Golem Provider Node :whale: Docker Image
 
 > Project won one of the four prizes allocated by the Golem Project on Gitcoin's [Hack New Golem](https://gitcoin.co/issue/golemfactory/hackathons/6/100024411) bounty!
